@@ -2,7 +2,6 @@
 
 /**
  * create-express-server
- * Copyright(c) 2017-present Felix Haus
  *
  * Based on create-react-app: https://github.com/facebookincubator/create-react-app
  * Copyright (c) 2015-2017, Facebook, Inc.

@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * create-express-server
+ *
+ * Based on create-react-app: https://github.com/facebookincubator/create-react-app
+ * Copyright (c) 2015-2017, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license.
+ */
+
 const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');

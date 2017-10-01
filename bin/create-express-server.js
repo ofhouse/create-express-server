@@ -18,23 +18,41 @@ const spawn = require('cross-spawn');
 
 const packageJson = require('../package.json');
 const init = require('../scripts/init');
+const start = require('../scripts/start');
+const build = require('../scripts/build');
 
-let projectName;
+let arg;
 
 program
   .version(packageJson.version)
-  .action(name => {
-    projectName = name;
+  .action(argument => {
+    arg = argument;
   })
   .parse(process.argv);
 
-createApp(projectName);
+runApp(arg);
+
+function runApp(argument) {
+  switch (argument) {
+    // Run dev server
+    case 'start': {
+      return start();
+    }
+
+    // Build the app
+    case 'build': {
+      return build();
+    }
+  }
+
+  // On default create new app
+  createApp(argument);
+}
 
 function createApp(name) {
   const root = path.resolve(name);
   const appName = path.basename(root);
 
-  console.log('NAME: ', name);
   fs.ensureDirSync(name);
 
   console.log(`Creating a new express.js app in ${chalk.green(root)}.`);
@@ -57,7 +75,9 @@ function createApp(name) {
 function run(root, appName) {
   const useYarn = true;
   const packageName = 'create-express-server';
-  const allDependencies = ['express', packageName];
+  // TODO:
+  // const allDependencies = ['express', packageName];
+  const allDependencies = ['express', 'babel-preset-env'];
 
   console.log('Installing packages. This might take a couple of minutes.');
   console.log(`Installing ${chalk.cyan('express')} and ${chalk.cyan(packageName)}...`);

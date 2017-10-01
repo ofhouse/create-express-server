@@ -19,7 +19,16 @@ module.exports = function(appPath, appName) {
 
   fs.writeFileSync(path.join(appPath, 'package.json'), JSON.stringify(appPackage, null, 2));
 
-  const templatePath = path.join(ownPath, 'template');
+  // TODO: Change back for npm release
+  // const templatePath = path.join(ownPath, 'template');
+  const templatePath = path.join(__dirname, '..', 'template');
 
-  console.log('templatePath', templatePath)
+  console.log('templatePath', templatePath);
+
+  if (fs.existsSync(templatePath)) {
+    fs.copySync(templatePath, appPath);
+  } else {
+    console.error(`Could not locate supplied template: ${chalk.green(templatePath)}`);
+    return;
+  }
 };

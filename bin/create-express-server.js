@@ -14,6 +14,7 @@ const path = require('path');
 const chalk = require('chalk');
 const program = require('commander');
 const spawn = require('cross-spawn');
+const execSync = require('child_process').execSync;
 
 const packageJson = require('../package.json');
 const init = require('../scripts/init');
@@ -72,25 +73,36 @@ function createApp(name) {
 }
 
 function run(root, appName) {
-  const useYarn = true;
+  const useYarn = shouldUseYarn();
   const packageName = 'create-express-server';
-  // TODO:
-  // const allDependencies = ['express', packageName];
-  const allDependencies = ['express', 'babel-preset-env'];
+  const dependencies = ['express'];
+  const devDependencies = ['babel-preset-env', packageName];
 
   console.log('Installing packages. This might take a couple of minutes.');
   console.log(`Installing ${chalk.cyan('express')} and ${chalk.cyan(packageName)}...`);
   console.log();
 
-  install(useYarn, allDependencies, false, true).then(() => packageName);
+  install(useYarn, dependencies, false, true)
+    .then(() => install(useYarn, devDependencies, false, true, true))
+    .then(() => init(root, appName));
+}
 
-  init(root, appName);
+/**
+ * Check if yarn exists
+ */
+function shouldUseYarn() {
+  try {
+    execSync('yarnpkg --version', { stdio: 'ignore' });
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 /**
  *
  */
-function install(useYarn, dependencies, verbose, isOnline) {
+function install(useYarn, dependencies, verbose, isOnline, dev) {
   return new Promise((resolve, reject) => {
     let command;
     let args;
@@ -99,6 +111,9 @@ function install(useYarn, dependencies, verbose, isOnline) {
       args = ['add', '--exact'];
       if (!isOnline) {
         args.push('--offline');
+      }
+      if (dev) {
+        args.push('--dev');
       }
       [].push.apply(args, dependencies);
 
@@ -109,7 +124,12 @@ function install(useYarn, dependencies, verbose, isOnline) {
       }
     } else {
       command = 'npm';
-      args = ['install', '--save', '--save-exact', '--loglevel', 'error'].concat(dependencies);
+      args = ['install', '--save-exact', '--loglevel', 'error'].concat(dependencies);
+      if (dev) {
+        args.push('--save-dev');
+      } else {
+        args.push('--save');
+      }
     }
 
     if (verbose) {

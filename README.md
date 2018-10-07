@@ -1,4 +1,4 @@
-# Create Node Server [![npm version](https://badge.fury.io/js/%40fwh%2Freact-pdfjs.svg)](https://badge.fury.io/js/%40fwh%2Freact-pdfjs)
+# Create Node Server [![npm version](https://badge.fury.io/js/%40fwh%2Fcreate-node-server.svg)](https://badge.fury.io/js/%40fwh%2Fcreate-node-server)
 
 Setup a node.js server from predefined templates with zero configuration.
 

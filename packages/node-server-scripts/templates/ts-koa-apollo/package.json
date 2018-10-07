@@ -1,0 +1,13 @@
+{
+  "description": "Contains the entry point and the required dependencies for the template",
+  "main": "./src/app.ts",
+  "dependencies": {
+    "apollo-server-koa": "0.0.0",
+    "graphql": "0.0.0",
+    "koa": "0.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "0.0.0",
+    "typescript": "0.0.0"
+  }
+}

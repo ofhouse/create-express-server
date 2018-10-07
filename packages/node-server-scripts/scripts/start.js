@@ -2,16 +2,16 @@
 // Starts a local development environment
 
 const nodemon = require('nodemon');
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const gaze = require('gaze');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 const build = require('./build');
 
 const BUILD_DIR = 'dist';
 
-module.exports = function() {
+function start() {
   // Build before start
   build();
 
@@ -27,7 +27,10 @@ module.exports = function() {
           .replace(/([\/\\])src([\/\\])/, '$1dist$2');
         targetFile = path.resolve(__dirname, targetFile);
 
-        if (sourceFile.match(/\.(js|json)$/i)) {
+        if (sourceFile.match(/\.(js|ts|json)$/i)) {
+          // Check if we have a ts file and convert the ending to js
+          targetFile = targetFile.replace(/\.ts$/i, '.js');
+
           // Check if we have javascript files we have to compile
           fs.writeFileSync(targetFile, babel.transformFileSync(sourceFile).code);
         } else {
@@ -44,7 +47,7 @@ module.exports = function() {
     // Run and watch dist
     nodemon({
       script: 'dist/app.js',
-      ext: 'js json hbs',
+      ext: 'js ts json',
       watch: BUILD_DIR,
       execMap: {
         js: 'node --trace-warnings',
@@ -57,4 +60,6 @@ module.exports = function() {
   process.once('SIGINT', function() {
     process.exit(0);
   });
-};
+}
+
+start();

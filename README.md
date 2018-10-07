@@ -1,14 +1,48 @@
-# Create Express Server
-Create an express server with next-gen javascript powered by [babel](https://babeljs.io/).
+# Create Node Server [![npm version](https://badge.fury.io/js/%40fwh%2Freact-pdfjs.svg)](https://badge.fury.io/js/%40fwh%2Freact-pdfjs)
 
-*This project's current status is WIP and anything here is subject to change.*
+Setup a node.js server from predefined templates with zero configuration.
+
+Inspired by [Create React App](https://github.com/facebook/create-react-app).
+
+## Features
+
+✅ Next-gen Javascript (or Typescript) powered by [Babel](https://babeljs.io/)
+✅ Auto-reload powered by [nodemon](https://nodemon.io/)
 
 ## Quick Overview
 
-```sh
-npm install -g create-express-server
+_Currently only [yarn](https://yarnpkg.com) is supported._
 
-create-express-server my-app
-cd my-app/
-npm start
+### Templates
+
+Create Node Server supports multiple templates.
+Currently the following templates are implemeneted (More to come):
+
+- `ts-koa-apollo`
+
+### Install
+
+```sh
+yarn global add @fwh/create-node-server
 ```
+
+### Create a new server from template
+
+```sh
+create-node-server my-app
+cd my-app/
+yarn start
+```
+
+## Autor
+
+<!-- prettier-ignore-start -->
+
+| [<img src="https://avatars0.githubusercontent.com/u/472867?v=4" width="100px;"/><br /><sub><b>Felix Haus</b></sub>](https://github.com/ofhouse)|
+| :---: |
+
+<!-- prettier-ignore-end -->
+
+## License
+
+MIT - see [LICENSE.md](./LICENSE.md) for details.

@@ -1,29 +1,13 @@
 {
-  "name": "create-express-server",
-  "version": "0.0.2",
-  "keywords": [
-    "express",
-    "babel"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
   "author": "Felix Haus <felixhaus@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/ofhouse/create-express-server",
+  "repository": "https://github.com/ofhouse/create-node-server",
   "bugs": {
-    "url": "https://github.com/ofhouse/create-express-server/issues"
+    "url": "https://github.com/ofhouse/create-node-server/issues"
   },
-  "dependencies": {
-    "babel-core": "6.26.0",
-    "chalk": "2.1.0",
-    "commander": "2.11.0",
-    "cross-spawn": "5.1.0",
-    "fs-extra": "4.0.2",
-    "gaze": "1.1.2",
-    "nodemon": "1.12.1"
-  },
-  "scripts": {
-    "start": "node ./bin/create-express-server.js"
-  },
-  "bin": {
-    "create-express-server": "./bin/create-express-server.js"
-  }
+  "dependencies": {}
 }

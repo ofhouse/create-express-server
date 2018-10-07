@@ -1,37 +1,37 @@
 'use strict';
 
 const glob = require('glob');
-const babel = require('babel-core');
-const fs = require('fs');
+const babel = require('@babel/core');
+const fs = require('fs-extra');
 const path = require('path');
 const mkdirp = require('mkdirp');
 
 const ENV = process.env.NODE_ENV;
 
-console.log('ENV', ENV);
-
 /**
  * Builds the project with babel and outputs it to dist/
  */
-
 const SOURCE_DIR = 'src';
 const CONFIG_DIR = 'config';
 const OUTPUT_DIR = 'dist';
 
 function getFilePattern(testing) {
   if (testing) {
-    return '/**/*.js';
+    return '/**/*.@(j|t)s';
   }
 
   // Exclude `.spec` files if we are not in testing mode
-  return '/**/!(*.spec).js';
+  return '/**/!(*.spec).@(j|t)s';
 }
 
 function writeFile(sourcePath, transform, replace, outputDir) {
   return new Promise((resolve, reject) => {
     try {
       const target = path.relative(__dirname, sourcePath).replace(replace, `$1${outputDir}$2`);
-      const targetFile = path.resolve(__dirname, target);
+      let targetFile = path.resolve(__dirname, target);
+
+      // Check if we have a ts file and convert the ending to js
+      targetFile = targetFile.replace(/\.ts$/i, '.js');
 
       mkdirp(path.dirname(targetFile), function(err) {
         if (err) {
@@ -54,8 +54,7 @@ function writeFile(sourcePath, transform, replace, outputDir) {
             });
           });
         } else {
-          fs
-            .createReadStream(sourcePath)
+          fs.createReadStream(sourcePath)
             .pipe(fs.createWriteStream(targetFile))
             .end(() => resolve({ target: target, source: sourcePath }));
         }
@@ -71,6 +70,10 @@ function transform(dir, outputDir) {
   const replacePattern = new RegExp(`([\\/\\\\])${dir}([\\/\\\\])`);
 
   glob(path, function(err, files) {
+    if (err) {
+      throw err;
+    }
+
     const promises = [];
     files.forEach(file => {
       promises.push(writeFile(file, true, replacePattern, outputDir));

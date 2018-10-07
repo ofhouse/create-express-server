@@ -1,0 +1,21 @@
+{
+  "name": "@fwh/create-node-server",
+  "description": "Bootstraps node.js servers with zero configuration",
+  "version": "1.0.0",
+  "keywords": [
+    "server",
+    "node"
+  ],
+  "author": "Felix Haus <felixhaus@gmail.com>",
+  "license": "MIT",
+  "repository": "https://github.com/ofhouse/create-node-server",
+  "bin": {
+    "create-node-server": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.18.0",
+    "cross-spawn": "^6.0.5",
+    "fs-extra": "^7.0.0"
+  }
+}

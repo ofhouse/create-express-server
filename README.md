@@ -6,8 +6,11 @@ Inspired by [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
 
-✅ Next-gen Javascript (or Typescript) powered by [Babel](https://babeljs.io/)
-✅ Auto-reload powered by [nodemon](https://nodemon.io/)
+✅ Next-gen Javascript (or Typescript) powered by [Babel](https://babeljs.io/).
+
+✅ Live-reload powered by [nodemon](https://nodemon.io/).
+
+✅ Inject environment variables via .json file (Live-reload only).
 
 ## Quick Overview
 

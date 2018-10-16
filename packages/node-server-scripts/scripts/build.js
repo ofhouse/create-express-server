@@ -12,7 +12,6 @@ const ENV = process.env.NODE_ENV;
  * Builds the project with babel and outputs it to dist/
  */
 const SOURCE_DIR = 'src';
-const CONFIG_DIR = 'config';
 const OUTPUT_DIR = 'dist';
 
 function getFilePattern(testing) {

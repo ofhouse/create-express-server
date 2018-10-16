@@ -6,12 +6,34 @@ const babel = require('@babel/core');
 const gaze = require('gaze');
 const fs = require('fs-extra');
 const path = require('path');
+const yargs = require('yargs');
 
 const build = require('./build');
 
 const BUILD_DIR = 'dist';
+const projectDir = process.cwd();
 
-function start() {
+/**
+ * Reads checks if a config file is provided and reads it to an object
+ */
+function getEnv() {
+  const args = yargs.argv;
+
+  if (args.env) {
+    const envFilePath = path.join(projectDir, args.env);
+
+    try {
+      const envFile = fs.readFileSync(envFilePath);
+      return JSON.parse(envFile);
+    } catch (err) {
+      console.log(`Could not read config file ${envFilePath}`);
+    }
+  }
+
+  return {};
+}
+
+function start(env) {
   // Build before start
   build();
 
@@ -52,6 +74,7 @@ function start() {
       execMap: {
         js: 'node --trace-warnings',
       },
+      env: env,
     });
   } catch (e) {
     console.error(e.message, e.stack);
@@ -62,4 +85,4 @@ function start() {
   });
 }
 
-start();
+start(getEnv());

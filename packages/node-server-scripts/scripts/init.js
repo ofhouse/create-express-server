@@ -24,7 +24,7 @@ module.exports = function(appPath, appName, originalDirectory, template) {
   const templatePackage = require(path.join(templatePath, 'package.json'));
 
   appPackage.scripts = {
-    start: 'node-server-scripts start',
+    start: 'node-server-scripts start --config="./env.json"',
     build: 'node-server-scripts build',
   };
 

@@ -1,6 +1,9 @@
 # compiled output
 build
 
+# Local environment
+env.json
+
 node_modules/
 .DS_Store
 *.tgz
